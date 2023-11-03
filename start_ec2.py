@@ -14,23 +14,25 @@ def send_ip(ip_address, user_email):
     
     context = ssl.create_default_context()
 
-    message="""\
+    message=f"""\
         Subject: Your Minecraft Server IP - {ip_address}
 
         From: {server_email}
 
         Yey! Your Minecraft server is now ready. Connect using this IP: {ip_address}
-        Your client needs to be version 18.2
+        Your client needs to be running version 18.2
         """
 
     with smtplib.SMTP_SSL(host, port, context=context) as server:
         server.login(server_email, password)
         server.sendmail(server_email, user_email, message)
 
-def start_ec2(user_email):
+def start_ec2(user_email, serverType):
 #Access AWS credentials via AWS secret manager
     secret_name = conf['AWS']['secret_name']
     secret_manager_client = boto3.client('secretsmanager')
+
+    print(serverType)
 
     try:
         get_secret_value_response = secret_manager_client.get_secret_value(SecretId=secret_name)
