@@ -1,45 +1,57 @@
 import streamlit as st
-import pandas
+from start_ec2 import start_ec2
 
 st.set_page_config(layout="wide")
 
-col1, col2 = st.columns(2)
+colSpacer1, col1, colSpacer2 = st.columns([1,1,1])
 
 with col1:
-    st.image("images/photo_me.png")
+    st.header("Deploy a Minecraft Server")
+    st.image("images/MC-Logo.png", width=250)
+
+
+colSpacer3, col2, colSpacer4 = st.columns([0.5,1.5,0.5])
 
 with col2:
-    st.title("David Mundy")
+    st.title("")
     blurb="""
-    Hi, I am David! I am currently an IT Manager looking to tranistion into a DevOps role. 
-    
-    I have over 15 years of experience in a wide range of organisations 
-    including public, private and charity sectors. A passion for tech and a keen interest in transitioning to a cloud engineering position.
+    Hey! Looking for a small private Minecraft server? You're in the right place. Select from the options below. 
+    The servers provisioned are suitable for up to 6 players. They are hosted on AWS EC2 instances and are terminated after you've finished.
+    The options are: Vanilla, ##### or #####. Worlds are not persisted (although I'm working on that).
     """
-    st.info(blurb)
+    st.write(blurb)
+    subtitle = """
+    To see what plans there are for this app click the roadmap link on the left or use the contact form to submit feedback.
+    """
+    st.info(subtitle)
 
-subtitle = """
-Below you can find some of the apps I have built in Python. Feel free to contact me!
-"""
-
-st.write(subtitle)
-
-col3, spacer_col1, col4 = st.columns([1.5,0.5,1.5])
-
-
-df = pandas.read_csv("data.csv", sep=";")
-
+colSpacer5, col3, colSpacer6 = st.columns([0.5,1.5,0.5])
 
 with col3:
-    for index, row in df[:2].iterrows():
-        st.header(row["title"])
-        st.write(row["description"])
-        st.image("images/" + row["image"])
-        st.write(f"[Github]({row['url']})")
+    with st.form(key="mc_deploy"):
+        user_email = st.text_input("Your email address")
+        col4, col5, col6 = st.columns([1.0,1.0,1.0])
+        with col4:
+            button1 = st.form_submit_button("Vanilla", use_container_width=True)
+        with col5:
+            button2 = st.form_submit_button("Coming Soon", use_container_width=True, disabled=True)
+        with col6:
+            button3 = st.form_submit_button("Coming Soon 2", use_container_width=True, disabled=True)
+        if button1:
+            serverType = 'vanilla'
+            start_ec2(user_email, serverType)
+            st.info("Vanilla Server Deploying")
+        elif button2:
+            serverType = 'type2'
+            start_ec2(user_email, serverType)
+            st.info("Type 2 Deploying")
+        elif button3:
+            serverType = 'type3'
+            start_ec2(user_email, serverType)
+            st.info("Type 3 Deploying")
 
-with col4:
-    for index, row in df[2:4].iterrows():
-        st.header(row["title"])
-        st.write(row["description"])
-        st.image("images/" + row["image"])
-        st.write(f"[Github]({row['url']})")
+
+
+
+
+
