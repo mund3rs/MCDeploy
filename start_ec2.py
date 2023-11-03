@@ -15,9 +15,9 @@ def send_ip(ip_address, user_email):
     context = ssl.create_default_context()
 
     message=f"""\
-        Subject: Your Minecraft Server IP - {ip_address}
-
         From: {server_email}
+
+        Subject: Your Minecraft Server IP - {ip_address}
 
         Yey! Your Minecraft server is now ready. Connect using this IP: {ip_address}
         Your client needs to be running version 18.2
@@ -59,6 +59,7 @@ def start_ec2(user_email, serverType):
             MinCount=1,
             MaxCount=1,
             InstanceType=instanceType,
+            TagSpecifications=[{'ResourceType': 'instance', 'Tags': [{'Key': 'Name','Value': 'Minecraft_Serv'}]}]
 
         )
         #get instance id
