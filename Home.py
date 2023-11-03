@@ -1,6 +1,9 @@
 import streamlit as st
 from start_ec2 import start_ec2
 
+def validate_email(user_email):
+    
+
 st.set_page_config(layout="wide")
 
 colSpacer1, col1, colSpacer2 = st.columns([1,1,1])
@@ -15,13 +18,12 @@ colSpacer3, col2, colSpacer4 = st.columns([0.5,1.5,0.5])
 with col2:
     st.title("")
     blurb="""
-    Hey! Looking for a small private Minecraft server? You're in the right place. Select from the options below. 
-    The servers provisioned are suitable for up to 6 players. They are hosted on AWS EC2 instances and are terminated after you've finished.
-    The options are: Vanilla, ##### or #####. Worlds are not persisted (although I'm working on that).
+    Hey! Looking for a small private Minecraft server? You're in the right place. The servers provisioned are suitable for up to 6 players. 
+    They are hosted on AWS EC2 instances and are terminated after you've finished. Worlds are not persisted (although I'm working on that).
     """
     st.write(blurb)
     subtitle = """
-    To see what plans there are for this app click the roadmap link on the left or use the contact form to submit feedback.
+    To see what plans there are for this app click the roadmap link on the left.
     """
     st.info(subtitle)
 
@@ -39,6 +41,7 @@ with col3:
             button3 = st.form_submit_button("Coming Soon 2", use_container_width=True, disabled=True)
         if button1:
             serverType = 'vanilla'
+            if validate_email(user_email)
             start_ec2(user_email, serverType)
             st.info("Vanilla Server Deploying - you will be sent the IP shortly")
         elif button2:
@@ -49,7 +52,6 @@ with col3:
             serverType = 'type3'
             start_ec2(user_email, serverType)
             st.info("Type 3 Deploying")
-
 
 
 
