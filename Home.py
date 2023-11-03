@@ -40,7 +40,7 @@ with col3:
         if button1:
             serverType = 'vanilla'
             start_ec2(user_email, serverType)
-            st.info("Vanilla Server Deploying")
+            st.info("Vanilla Server Deploying - you will be sent the IP shortly")
         elif button2:
             serverType = 'type2'
             start_ec2(user_email, serverType)
