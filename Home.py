@@ -1,8 +1,15 @@
 import streamlit as st
 from start_ec2 import start_ec2
+import re
+import time
 
 def validate_email(user_email):
-    
+    regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
+    if(re.fullmatch(regex, user_email)):
+        print('Valid email address')
+        return user_email
+    else:
+        st.warning('Invalid Email. Please check and try again')
 
 st.set_page_config(layout="wide")
 
@@ -41,9 +48,9 @@ with col3:
             button3 = st.form_submit_button("Coming Soon 2", use_container_width=True, disabled=True)
         if button1:
             serverType = 'vanilla'
-            if validate_email(user_email)
-            start_ec2(user_email, serverType)
-            st.info("Vanilla Server Deploying - you will be sent the IP shortly")
+            if validate_email(user_email):
+                st.info("Vanilla Server Deploying - you will be sent the IP shortly")
+                start_ec2(user_email, serverType)
         elif button2:
             serverType = 'type2'
             start_ec2(user_email, serverType)
