@@ -27,6 +27,7 @@ The project provides a user-friendly interface (built with Streamlit) to facilit
 
 - Minecraft client needs to be running version 18.2
 - AWS account, to avoid charges use t3.micro instance type in the config.ini. Performance on t3.micro is fine for upt to 3 players.
+- Create AWS Image with minecraft server set to auto run at start up
 
 ## Installation
 
